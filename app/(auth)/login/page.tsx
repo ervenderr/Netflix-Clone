@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Logo from '../../../public/google.svg'
 import { GithubIcon } from "lucide-react";
+import { signIn } from 'next-auth/react';
+import GithubSigninButton from '@/app/components/GithubSigninButton';
 
 export default function Login() {
     return (
@@ -40,15 +42,13 @@ export default function Login() {
                     New to Netflix? <Link href="/sign-up" className="text-white">Sign up now</Link>
                 </div>
 
-                <div className="flex flex-col w-full justify-center items-center gap-x-3 mt-6">
-                    <Button variant='outline' className=''>
-                        <Image src={Logo} alt='GoogleLogo' className="mr-2 w-8 h-8" />Sign in with Google
-                    </Button>
-                    <Button variant='outline' className='mt-3'>
-                        <GithubIcon className="mr-2 " />Sign in with Github
-                    </Button>
-                </div>
             </form>
+            <div className="flex flex-col w-full justify-center items-center gap-x-3 mt-6">
+                <Button variant='outline' className=''>
+                    <Image src={Logo} alt='GoogleLogo' className="mr-2 w-8 h-8" />Sign in with Google
+                </Button>
+                <GithubSigninButton />
+            </div>
 
         </div>
     )
