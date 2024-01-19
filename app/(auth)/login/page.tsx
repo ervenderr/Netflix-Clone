@@ -4,14 +4,23 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Logo from '../../../public/google.svg'
-import { GithubIcon } from "lucide-react";
-import { signIn } from 'next-auth/react';
 import GithubSigninButton from '@/app/components/GithubSigninButton';
+import { authOptions } from '@/app/utils/auth';
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
+import FacebookSigninButton from '@/app/components/FacebookSigninButton';
 
-export default function Login() {
+export default async function Login() {
+
+    const session = await getServerSession(authOptions);
+
+    if(session){
+        return redirect("/home");
+    }
+
     return (
         <div className="mt-24 rounded bg-black/75 py-10 px-[68px] pt-[60px] md:mt-0 md:min-w-[450px]  md:min-h-[660px] md:px-[68px]">
-            <form action="">
+            <form action="/api/auth/login" method='post'>
                 <h1 className="text-[32px] font-bold mb-7">Sign In</h1>
                 <div className="flex flex-col flex-grow">
                     <div className='relative'>
@@ -44,9 +53,7 @@ export default function Login() {
 
             </form>
             <div className="flex flex-col w-full justify-center items-center gap-x-3 mt-6">
-                <Button variant='outline' className=''>
-                    <Image src={Logo} alt='GoogleLogo' className="mr-2 w-8 h-8" />Sign in with Google
-                </Button>
+                <FacebookSigninButton />
                 <GithubSigninButton />
             </div>
 

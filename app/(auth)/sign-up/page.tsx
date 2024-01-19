@@ -5,12 +5,23 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { GithubIcon } from "lucide-react";
 import Logo from '../../../public/google.svg'
+import GithubSigninButton from '@/app/components/GithubSigninButton';
+import { authOptions } from '@/app/utils/auth';
+import { redirect } from 'next/navigation';
+import { getServerSession } from 'next-auth';
 
 
-export default function SignUp() {
+export default async function SignUp() {
+
+    const session = await getServerSession(authOptions);
+
+    if(session){
+        return redirect("/home");
+    }
+
     return (
         <div className="mt-24 rounded bg-black/75 py-10 px-[68px] pt-[60px] md:mt-0 md:min-w-[450px]  md:min-h-[660px] md:px-[68px]">
-            <form action="">
+            <form action="/api/auth/signup" method='post'>
                 <h1 className="text-[32px] font-bold mb-7">Sign Up</h1>
                 <div className="flex flex-col flex-grow">
 
@@ -48,9 +59,7 @@ export default function SignUp() {
                     <Button variant='outline' className=''>
                         <Image src={Logo} alt='GoogleLogo' className="mr-2 w-8 h-8" />Sign Up with Google
                     </Button>
-                    <Button variant='outline' className='mt-3'>
-                        <GithubIcon className="mr-2 " />Sign in with Github
-                    </Button>
+                    <GithubSigninButton />
                 </div>
             </form>
 
