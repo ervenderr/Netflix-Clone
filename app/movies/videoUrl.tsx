@@ -1,4 +1,4 @@
-const getMovies = async () => {
+const getVieos = async (key: any) => {
     const apiKey = process.env.API_KEY;
 
     if (!apiKey) {
@@ -8,13 +8,14 @@ const getMovies = async () => {
         };
     }
 
-    const res = await fetch(`https://api.themoviedb.org/3/movie/787699?language=en-US&api_key=${apiKey}`);
+    const res = await fetch(`https://api.themoviedb.org/3/movie/${key}/videos?api_key=${apiKey}&language=en-US`);
     
     if (!res.ok) {
         throw new Error("Failed to fetch data");
     }
-
+    
     return res.json();
 };
 
-export default getMovies;
+export default getVieos;
+

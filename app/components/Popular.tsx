@@ -21,7 +21,7 @@ const getMovies = async () => {
         };
     }
 
-    const res = await fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=true&language=en-US&page=2&sort_by=popularity.desc&api_key=${apiKey}`);
+    const res = await fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=true&language=en-US&page=1&sort_by=popularity.desc&api_key=${apiKey}`);
 
     if (!res.ok) {
         throw new Error("Failed to fetch data");
@@ -30,7 +30,7 @@ const getMovies = async () => {
     return res.json();
 };
 
-export default async function RecentlyAdded() {
+export default async function Popular() {
 
     const movies = await getMovies();
     const { results = [] } = movies;
@@ -40,8 +40,8 @@ export default async function RecentlyAdded() {
         new Date(b.release_date) - new Date(a.release_date)
     );
 
-    // Take the 5 most recent
-    const latestReleases = results.slice(0, 5);
+    // Take the 5 most popular
+    const latestReleases = results.slice(0, 10);
 
     const ids = latestReleases.map(movie => movie.id);
 
@@ -71,7 +71,6 @@ export default async function RecentlyAdded() {
                                     height={500}
                                     className="rounded-sm absolute w-full h-full"
                                 />
-
                                 <div className="relative h-60 w-full z-10 transform transition duration-300 opacity-0 hover:opacity-100">
                                     <div className="bg-gradient-to-b from-transparent via-black/50 to-black w-full h-full z-10 rounded-lg flex items-center justify-center border">
                                         <MovieCard
