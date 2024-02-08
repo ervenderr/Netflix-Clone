@@ -36,14 +36,14 @@ export default async function Popular() {
     const { results = [] } = movies;
 
     // Sort by release date descending
-    results.sort((a: { release_date: string | number | Date; }, b: { release_date: string | number | Date; }) =>
+    results.sort((a, b) =>
         new Date(b.release_date) - new Date(a.release_date)
     );
 
     // Take the 5 most popular
     const latestReleases = results.slice(0, 10);
 
-    const ids = latestReleases.map((movie: { id: any; }) => movie.id);
+    const ids = latestReleases.map(movie => movie.id);
 
     const allVideos = [];
     for (const id of ids) {
@@ -62,7 +62,7 @@ const youtubeURLs = trailerVideos.map(trailerVideo => `https://www.youtube.com/e
     return (
         <Carousel className="mt-8 mb-8">
             <CarouselContent className="-ml-5">
-                {latestReleases.map((movie: { id: string; }[], index: string | number) => (
+                {latestReleases.map((movie, index) => (
                     <CarouselItem key={movie.id} className="md:basis-1/2 lg:basis-1/4 pl-2">
                         <Card className="border-0 p-0">
                             <CardContent className="p-0 relative">
