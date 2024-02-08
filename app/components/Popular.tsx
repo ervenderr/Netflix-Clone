@@ -36,8 +36,8 @@ export default async function Popular() {
     const { results = [] } = movies;
 
     // Sort by release date descending
-    results.sort((a, b) =>
-        new Date(b.release_date) - new Date(a.release_date)
+    results.sort((a: { release_date: string }, b: { release_date: string }) =>
+        new Date(b.release_date).getTime() - new Date(a.release_date).getTime()
     );
 
     // Take the 5 most popular
