@@ -43,17 +43,17 @@ export default async function Popular() {
     // Take the 5 most popular
     const latestReleases = results.slice(0, 10);
 
-    const ids = latestReleases.map(movie => movie.id);
+    const ids = latestReleases.map((movie: { id: number }) => movie.id);
 
     const allVideos = [];
     for (const id of ids) {
-    const video = await getVieos(id); 
-    allVideos.push(...video.results);
+        const video = await getVieos(id);
+        allVideos.push(...video.results);
     }
 
-const trailerVideos = allVideos.filter(video => video.type === 'Trailer');
+    const trailerVideos = allVideos.filter(video => video.type === 'Trailer');
 
-const youtubeURLs = trailerVideos.map(trailerVideo => `https://www.youtube.com/embed/${trailerVideo.key}`);
+    const youtubeURLs = trailerVideos.map(trailerVideo => `https://www.youtube.com/embed/${trailerVideo.key}`);
 
     console.log(youtubeURLs);
     // https://www.youtube.com/embed
@@ -62,7 +62,7 @@ const youtubeURLs = trailerVideos.map(trailerVideo => `https://www.youtube.com/e
     return (
         <Carousel className="mt-8 mb-8">
             <CarouselContent className="-ml-5">
-                {latestReleases.map((movie, index) => (
+                {latestReleases.map((movie: { id: string; title: string; backdrop_path?: string; poster_path?: string; overview?: string; release_date?: string; }, index: number) => (
                     <CarouselItem key={movie.id} className="md:basis-1/2 lg:basis-1/4 pl-2">
                         <Card className="border-0 p-0">
                             <CardContent className="p-0 relative">
@@ -80,9 +80,9 @@ const youtubeURLs = trailerVideos.map(trailerVideo => `https://www.youtube.com/e
                                             movieID={movie.id}
                                             overview={movie.overview}
                                             release_date={movie.release_date}
-                                            watchListId={movie[0]?.id}
+                                            watchListId={movie.id}
                                             youtubeURL={youtubeURLs[index]}
-                                            watchList={movie.length > 0 ? true : false}
+                                            watchList={latestReleases.length > 0}
                                             key={movie.id}
                                         />
                                     </div>
@@ -95,5 +95,6 @@ const youtubeURLs = trailerVideos.map(trailerVideo => `https://www.youtube.com/e
             <CarouselPrevious />
             <CarouselNext />
         </Carousel>
+
     );
 }
