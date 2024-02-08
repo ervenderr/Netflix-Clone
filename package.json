@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "CI=false rescripts build",
-    "build-win": "set CI=false&&rescripts build",
+    "build": "CI=false next build",
     "start": "next start",
     "lint": "next lint"
   },
