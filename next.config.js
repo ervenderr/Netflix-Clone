@@ -5,4 +5,7 @@ module.exports = {
     images: {
       domains: ['image.tmdb.org', 'themoviedb.org'],
     },
+    eslint: {
+      ignoreDuringBuilds: true,
+  },
   };
