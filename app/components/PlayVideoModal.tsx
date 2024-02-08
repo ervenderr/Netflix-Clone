@@ -13,17 +13,17 @@ interface iAppProps {
 }
 
 export default function PlayVideoModal({
+    changeState,
     title,
     overview,
     state,
-    changeState,
     youtubeURL,
     release_date,
     age,
     duration
 }: iAppProps) {
     return (
-        <Dialog open={state} onOpenChange={() => changeState(state)}>
+        <Dialog open={state} onOpenChange={() => changeState(!state)}>
             <DialogContent className="sm:max-w-[425px] lg:max-w-screen-md">
                 <DialogHeader>
                     <DialogTitle className="text-xl">{title}</DialogTitle>

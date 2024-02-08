@@ -47,13 +47,15 @@ export default async function Popular() {
 
     const allVideos = [];
     for (const id of ids) {
-        const video = await getVieos(id);
-        allVideos.push(...video.results);
+    const video = await getVieos(id); 
+    allVideos.push(...video.results);
     }
 
-    const youtubeURLs = allVideos.map(video => `https://www.youtube.com/embed/${video.key}`);
+const trailerVideos = allVideos.filter(video => video.type === 'Trailer');
 
-    // console.log(youtubeURLs);
+const youtubeURLs = trailerVideos.map(trailerVideo => `https://www.youtube.com/embed/${trailerVideo.key}`);
+
+    console.log(youtubeURLs);
     // https://www.youtube.com/embed
 
 
