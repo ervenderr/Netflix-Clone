@@ -2,6 +2,7 @@ import prisma from "../utils/db";
 import getMovies from "../movies/page";
 import { Button } from "@/components/ui/button";
 import { Info, Play } from "lucide-react";
+import MovieButtons from "./movieButtons";
 
 
 
@@ -9,6 +10,8 @@ export default async function MovieVideo() {
 
     const movie = await getMovies();
     // console.log(movie.id);
+
+    const youtubeURL = 'https://www.youtube.com/embed/otNh9bTjXWg';
 
     return (
         <div className="h-[55vh] lg:h-[60vh] w-full flex justify-start items-center">
@@ -26,11 +29,10 @@ export default async function MovieVideo() {
                 <h1 className="text-4xl lg:text-5xl md:text-6xl font-bold">{movie.title}</h1>
                 <p className="text-gray-400 text-lg mt-5 line-clamp-3">{movie.overview}</p>
                 <div className="flex gap-x-3 mt-5">
-                    <Button variant="default" className="font-bold text-lg"><Play strokeWidth={3} className="mr-3"/>Play</Button>
-                    <Button variant="secondary" className="font-bold text-lg"><Info className="mr-3"/>More Info</Button>
+                    <MovieButtons title={movie.title} overview={movie.overview} state={false} changeState={undefined} youtubeURL={youtubeURL} release_date={movie.release_date} age={movie.adult ? 18 : 0} duration={movie.runtime}/>
                 </div>
             </div>
-
         </div>
     );
 }
+

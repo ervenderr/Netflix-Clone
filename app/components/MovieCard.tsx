@@ -7,18 +7,19 @@ import getVieos from "../movies/videoUrl";
 
 interface MovieCardProps {
     title: string;
-    movieID: string;
+    movieID: number;
     overview: string;
     release_date: string;
     watchList: boolean;
-    watchListId: string;
+    watchListId: number;
     youtubeURL: string;
+    duration: number;
 }
 
 const apiKey = process.env.API_KEY;
 
 
-export function MovieCard({ title, movieID, overview, release_date, watchList, watchListId, youtubeURL }: MovieCardProps) {
+export function MovieCard({ title, movieID, overview, release_date, watchList, watchListId, youtubeURL, duration }: MovieCardProps) {
 
     const year = parseInt(release_date.slice(0, 4));
     const [open, setOpen] = useState(false);
@@ -61,8 +62,7 @@ export function MovieCard({ title, movieID, overview, release_date, watchList, w
             youtubeURL={youtubeURL}
             release_date={year}
             age={12}
-            duration={120}/>
-
+            duration={duration}/>
         </>
     )
 }
